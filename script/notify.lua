@@ -8,7 +8,7 @@ local wifiPasswd = ""
 --官网：https://push.luatos.org/ 点击GitHub图标登陆即可
 --支持邮件/企业微信/钉钉/飞书/电报/IOS Bark
 
---是否使用server酱，false则使用LuatOS社区提供的推送服务
+--是否使用ntfy，false则使用LuatOS社区提供的推送服务
 local useNtfy = true
 
 --LuatOS社区提供的推送服务 https://push.luatos.org/
@@ -16,11 +16,7 @@ local useNtfy = true
 --如：https://push.luatos.org/ABCDEF1234567890ABCD.send/{title}/{data} 填入 ABCDEF1234567890ABCD
 local luatosPush = "ABCDEF1234567890ABCD"
 
---server酱的配置，免费用户每天仅可发送五条推送消息
---server酱的SendKey，如果你用的是这个就需要填一个
---https://sct.ftqq.com/sendkey 申请一个
-local luatosPush = "ABCDEF1234567890ABCD"
-
+--ntfy的配置
 local ntfyUrl = "https://ntfy.sh/"
 local ntfyKey = ""
 
