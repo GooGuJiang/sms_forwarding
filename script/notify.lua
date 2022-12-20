@@ -9,7 +9,7 @@ local wifiPasswd = ""
 --支持邮件/企业微信/钉钉/飞书/电报/IOS Bark
 
 --是否使用server酱，false则使用LuatOS社区提供的推送服务
-local useServerChan = false
+local useNtfy = true
 
 --LuatOS社区提供的推送服务 https://push.luatos.org/
 --这里填.send前的字符串就好了
@@ -19,7 +19,11 @@ local luatosPush = "ABCDEF1234567890ABCD"
 --server酱的配置，免费用户每天仅可发送五条推送消息
 --server酱的SendKey，如果你用的是这个就需要填一个
 --https://sct.ftqq.com/sendkey 申请一个
-local serverKey = ""
+local luatosPush = "ABCDEF1234567890ABCD"
+
+local ntfyUrl = "https://ntfy.sh/"
+local ntfyKey = ""
+
 
 --缓存消息
 local buff = {}
@@ -47,14 +51,18 @@ sys.taskInit(function()
                 collectgarbage("collect")--防止内存不足
                 local sms = table.remove(buff,1)
                 local code,h, body
-                if useServerChan then--server酱
+                if useNtfy then--server酱
                     local data = pdu.ucs2_utf8(sms[2])
-                    log.info("notify","send to serverChan",data)
+                    log.info("notify","send to ntfy",data)
                     code, h, body = http2.request(
                             "POST",
-                            "https://sctapi.ftqq.com/"..serverKey..".send",
-                            {["Content-Type"] = "application/x-www-form-urlencoded"},
-                            "title="..string.urlEncode("sms"..sms[1]).."&desp="..string.urlEncode(data)
+                            ntfyUrl,
+                            {
+                                ["Content-Type"] = "text/plain",
+                                ["Title"] = string.urlEncode("sms"..sms[1]),
+                                ["Authorization"] = "Basic "..ntfyKey
+                            },
+                            string.urlEncode(data)
                         ).wait()
                     log.info("notify","pushed sms notify",code,h,body,sms[1])
                 else--luatos推送服务
