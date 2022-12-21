@@ -1,6 +1,6 @@
 -- LuaTools需要PROJECT和VERSION这两个信息
-PROJECT = "sms_forwarding"
-VERSION = "1.0.0"
+PROJECT = "sms_forwarding_ntfy"
+VERSION = "1.0.1"
 
 log.info("main", PROJECT, VERSION)
 

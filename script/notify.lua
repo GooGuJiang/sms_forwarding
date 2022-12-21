@@ -17,8 +17,8 @@ local useNtfy = true
 local luatosPush = "ABCDEF1234567890ABCD"
 
 --ntfy的配置
-local ntfyUrl = "https://ntfy.sh/"
-local ntfyKey = ""
+local ntfyUrl = "https://ntfy.sh/xxx" --xxx可以自定义
+local ntfyKey = "" --自建服务访问是设置的
 
 
 --缓存消息
@@ -55,10 +55,10 @@ sys.taskInit(function()
                             ntfyUrl,
                             {
                                 ["Content-Type"] = "text/plain",
-                                ["Title"] = string.urlEncode("sms"..sms[1]),
+                                ["Title"] = sms[1],
                                 ["Authorization"] = "Basic "..ntfyKey
                             },
-                            string.urlEncode(data)
+                            data
                         ).wait()
                     log.info("notify","pushed sms notify",code,h,body,sms[1])
                 else--luatos推送服务

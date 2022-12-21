@@ -175,6 +175,8 @@ function libT.decodePDU(pdu,len)
     addnum = pdu:sub(5, 5 + addlen - 1)
     local convnum = bcdnumtonum(addnum)
 
+    --log.info("pdu!!!!", addnum,convnum,addlen)
+
     flag = tonumber(string.format("%d", "0x" .. pdu:sub(offset, offset + 1)))--协议标识 (TP-PID)
     offset = offset + 2
     dcs = tonumber(string.format("%d", "0x" .. pdu:sub(offset, offset + 1)))--用户信息编码方式 Dcs=8，表示短信存放的格式为UCS2编码
